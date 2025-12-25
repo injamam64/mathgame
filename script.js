@@ -22,7 +22,7 @@ function updateHearts(){
 function startGame(){
   gameStarted = true;
   score = 0;
-  hearts = 3;
+  hearts = 5;
   scoreBox.textContent = score;
   updateHearts();
   startScreen.style.display = "none";
