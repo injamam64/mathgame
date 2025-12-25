@@ -1,5 +1,5 @@
 let score = 0;
-let hearts = 5;
+let hearts = 3;
 let input = "";
 let correctAnswer = 0;
 let dropInterval;
@@ -43,7 +43,7 @@ function toggleKidsMode(){
 function startGame(){
   gameStarted = true;
   score = 0;
-  hearts = 5;
+  hearts = 3;
   input = "";
 
   scoreBox.textContent = score;
