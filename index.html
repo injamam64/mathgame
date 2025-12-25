@@ -3,8 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Math Droplet Game</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
 
 <style>
 body{
@@ -78,6 +77,7 @@ body{
   border-radius:10px;
 }
 
+/* Screens */
 .start-screen,
 .game-over{
   position:absolute;
@@ -103,6 +103,18 @@ body{
   border:none;
   border-radius:10px;
   cursor:pointer;
+}
+
+/* Kids mode button (ONLY start screen) */
+.kids-toggle{
+  margin:15px 0;
+  background:white;
+  color:#333;
+  padding:8px 14px;
+  border-radius:12px;
+  font-size:16px;
+  cursor:pointer;
+  user-select:none;
 }
 </style>
 </head>
@@ -135,14 +147,16 @@ body{
     <button onclick="clearInput()">⌫</button>
   </div>
 
-  <!-- START SCREEN -->
+  <!-- START SCREEN (Kids Mode ONLY here) -->
   <div class="start-screen" id="startScreen">
     <h2>Math Droplet Game</h2>
+
+    <div class="kids-toggle" onclick="toggleKidsMode()">
+      Kids Mode: <span id="kidsStatus">OFF</span>
+    </div>
+
     <button onclick="startGame()">Start Game</button>
   </div>
-<div class="kids-toggle" onclick="toggleKidsMode()">
-  Kids Mode: <span id="kidsStatus">OFF</span>
-</div>
 
   <!-- GAME OVER -->
   <div class="game-over" id="gameOver">
