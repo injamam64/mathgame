@@ -1,5 +1,5 @@
 let score = 0;
-let hearts = 3;
+let hearts = 5;
 let input = "";
 let correctAnswer = 0;
 let dropInterval;
