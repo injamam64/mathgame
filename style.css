@@ -50,20 +50,38 @@ body {
 }
 
 /* Droplet */
-.droplet {
-  position: absolute;
-  top: -60px;
-  left: 140px;
-  width: 80px;
-  height: 80px;
-  background: #3fa9f5;
-  border-radius: 50% 50% 50% 50%;
-  color: white;
-  font-size: 18px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.droplet{
+  position:absolute;
+  top:-80px;
+  left:50%;
+  transform:translateX(-50%);
+  width:70px;
+  height:90px;
+  background: radial-gradient(circle at 30% 30%, #aee4ff, #3fa9f5);
+  border-radius: 50% 50% 55% 55%;
+  clip-path: polygon(
+    50% 0%,
+    85% 20%,
+    100% 60%,
+    50% 100%,
+    0% 60%,
+    15% 20%
+  );
+  color:white;
+  font-size:18px;
+  font-weight:bold;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  animation: wobble 1.5s infinite ease-in-out;
 }
+
+@keyframes wobble{
+  0%{ transform:translateX(-50%) rotate(0deg); }
+  50%{ transform:translateX(-50%) rotate(2deg); }
+  100%{ transform:translateX(-50%) rotate(0deg); }
+}
+
 
 /* Keypad */
 .keypad {
@@ -95,3 +113,16 @@ body {
   background: #ff4d4d;
   color: white;
 }
+.kids-toggle{
+  position:absolute;
+  top:15px;
+  right:15px;
+  background:white;
+  color:#333;
+  padding:6px 10px;
+  border-radius:10px;
+  font-size:14px;
+  cursor:pointer;
+  user-select:none;
+}
+
