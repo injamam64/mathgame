@@ -4,15 +4,16 @@ body {
   font-family: Arial, sans-serif;
 }
 
-.game-container {
-  width: 360px;
-  height: 640px;
-  margin: 20px auto;
-  background: linear-gradient(#cfe9f5, #e9f7ff);
-  border-radius: 20px;
-  overflow: hidden;
-  position: relative;
+.game-container{
+  width:100vw;
+  height:100vh;
+  max-width:420px;
+  margin:auto;
+  background:#e9f7ff;
+  position:relative;
+  overflow:hidden;
 }
+
 
 /* Top Bar */
 .top-bar {
@@ -76,12 +77,14 @@ body {
   padding: 10px;
 }
 
-.keypad button {
-  padding: 15px;
-  font-size: 18px;
-  border: none;
-  border-radius: 10px;
+.keypad button{
+  padding:18px;
+  font-size:22px;
+  border:none;
+  border-radius:12px;
+  touch-action: manipulation;
 }
+
 
 .blue {
   background: #2d7cff;
