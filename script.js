@@ -7,7 +7,7 @@ let dropPosition;
 let currentDroplet;
 let gameStarted = false;
 
-// 👉 Kids mode
+/* Kids mode */
 let kidsMode = false;
 
 const answerBox = document.getElementById("answerBox");
@@ -17,16 +17,20 @@ const heartsBox = document.querySelector(".hearts");
 const startScreen = document.getElementById("startScreen");
 const gameOverScreen = document.getElementById("gameOver");
 const finalScore = document.getElementById("finalScore");
-const kidsStatus = document.getElementById("kidsStatus"); // span on home screen
+const kidsStatus = document.getElementById("kidsStatus");
 
+/* =====================
+   HEARTS
+===================== */
 function updateHearts(){
   heartsBox.textContent = "❤️".repeat(hearts);
 }
 
 /* =====================
-   KIDS MODE TOGGLE
+   KIDS MODE (ONLY BEFORE GAME)
 ===================== */
 function toggleKidsMode(){
+  if(gameStarted) return;
   kidsMode = !kidsMode;
   if(kidsStatus){
     kidsStatus.textContent = kidsMode ? "ON" : "OFF";
@@ -65,7 +69,6 @@ function createDroplet(){
   let a, b;
 
   if(kidsMode){
-    // 👉 Kids mode: sum always 0–9
     a = Math.floor(Math.random() * 9);
     b = Math.floor(Math.random() * (9 - a));
   }else{
@@ -86,29 +89,32 @@ function createDroplet(){
 
     if(dropPosition > 320){
       clearInterval(dropInterval);
-      loseHeart();
+      handleWrong();
     }
-  }, 16); // smoother on mobile
+  }, 16);
 }
 
 /* =====================
-   KEY PRESS (SMART AUTO SUBMIT)
+   KEY PRESS
 ===================== */
 function pressKey(num){
   if(!gameStarted) return;
 
-  // kids mode → only 1 digit
   if(kidsMode && input.length >= 1) return;
-
-  // normal mode → max 2 digits
   if(!kidsMode && input.length >= 2) return;
 
   input += num;
   answerBox.textContent = input;
 
-  // 👉 AUTO SUBMIT WHEN MATCH
-  if(parseInt(input) === correctAnswer){
+  const typedValue = parseInt(input);
+
+  if(typedValue === correctAnswer){
     handleCorrect();
+    return;
+  }
+
+  if(kidsMode || (!kidsMode && input.length === 2)){
+    handleWrong();
   }
 }
 
@@ -121,31 +127,39 @@ function clearInput(){
 }
 
 /* =====================
-   CORRECT ANSWER
+   CORRECT ANSWER (POP)
 ===================== */
 function handleCorrect(){
   score += 10;
   scoreBox.textContent = score;
 
   clearInterval(dropInterval);
-  currentDroplet.style.display = "none";
+
+  // ✅ correct animation
+  currentDroplet.classList.add("burst-correct");
 
   setTimeout(createDroplet, 300);
 }
 
 /* =====================
-   LOSE HEART
+   WRONG ANSWER (SHAKE)
 ===================== */
-function loseHeart(){
-  hearts--;
-  updateHearts();
+function handleWrong(){
   clearInterval(dropInterval);
 
-  if(hearts <= 0){
-    gameOver();
-  }else{
-    setTimeout(createDroplet, 300);
-  }
+  // ❌ wrong animation
+  currentDroplet.classList.add("burst-wrong");
+
+  setTimeout(() => {
+    hearts--;
+    updateHearts();
+
+    if(hearts <= 0){
+      gameOver();
+    }else{
+      createDroplet();
+    }
+  }, 300);
 }
 
 /* =====================
@@ -161,5 +175,6 @@ function gameOver(){
    RESTART
 ===================== */
 function restartGame(){
-  startGame();
+  gameOverScreen.style.display = "none";
+  startScreen.style.display = "flex";
 }
